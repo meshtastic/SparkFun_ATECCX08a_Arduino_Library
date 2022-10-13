@@ -212,7 +212,7 @@ boolean ATECCX08A::readConfigZone(boolean debug)
   if (debug)
   {
     _debugSerial->println("configZone: ");
-    for (int i = 0; i < sizeof(configZone) ; i++)
+    for (unsigned int i = 0; i < sizeof(configZone) ; i++)
     {
       _debugSerial->print(i);
 	  _debugSerial->print(": 0x");
@@ -330,7 +330,7 @@ boolean ATECCX08A::updateRandom32Bytes(boolean debug)
   if (debug)
   {
     _debugSerial->print("random32Bytes: ");
-    for (int i = 0; i < sizeof(random32Bytes) ; i++)
+    for (unsigned int i = 0; i < sizeof(random32Bytes) ; i++)
     {
       _debugSerial->print(random32Bytes[i], HEX);
       _debugSerial->print(",");
@@ -607,7 +607,7 @@ void ATECCX08A::atca_calculate_crc(uint8_t length, uint8_t *data)
 
 void ATECCX08A::cleanInputBuffer()
 {
-  for (int i = 0; i < sizeof(inputBuffer) ; i++)
+  for (unsigned int i = 0; i < sizeof(inputBuffer) ; i++)
   {
     inputBuffer[i] = 0xFF;
   }
@@ -693,7 +693,7 @@ boolean ATECCX08A::generatePublicKey(uint16_t slot, boolean debug)
     _debugSerial->println("This device's Public Key:");
     _debugSerial->println();
     _debugSerial->println("uint8_t publicKey[64] = {");
-    for (int i = 0; i < sizeof(publicKey64Bytes) ; i++)
+    for (unsigned int i = 0; i < sizeof(publicKey64Bytes) ; i++)
     {
       _debugSerial->print("0x");
       if ((publicKey64Bytes[i] >> 4) == 0) _debugSerial->print("0"); // print preceeding high nibble if it's zero
@@ -916,7 +916,7 @@ boolean ATECCX08A::signTempKey(uint16_t slot)
 
   _debugSerial->println();
   _debugSerial->println("uint8_t signature[64] = {");
-  for (int i = 0; i < sizeof(signature) ; i++)
+  for (unsigned int i = 0; i < sizeof(signature) ; i++)
   {
     _debugSerial->print("0x");
     if ((signature[i] >> 4) == 0) _debugSerial->print("0"); // print preceeding high nibble if it's zero
@@ -988,7 +988,7 @@ boolean ATECCX08A::sha256(uint8_t * plain, size_t len, uint8_t * hash)
 		return false;
 
 	/* Divide into blocks of 64 bytes per chunk */
-	for (i = 0; i < chunks; ++i)
+	for (unsigned i = 0; i < chunks; ++i)
 	{
 		size_t data_size = SHA_BLOCK_SIZE;
 		uint8_t chunk[SHA_BLOCK_SIZE];
