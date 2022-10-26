@@ -179,8 +179,8 @@
 
 #define SLOT_CONFIG_ADDRESS(SLOT)					(((CONFIG_ZONE_SLOT_CONFIG) + sizeof(uint16_t) * (SLOT)) >> 2)
 #define KEY_CONFIG_ADDRESS(SLOT)					(((CONFIG_ZONE_KEY_CONFIG) + sizeof(uint16_t) * (SLOT)) >> 2)
-#define EEPROM_CONFIG_ADDRESS(OFFSET)				((OFFSET) >> 2)
-#define EEPROM_DATA_ADDRESS(SLOT, BLOCK, OFFSET)	((((BLOCK) & 0b00001111) << 8) | ((((SLOT) & 0b01111) << 3) | ((OFFSET) & 0b00000111)))
+#define EEPROM_CONFIG_ADDRESS_ATECC(OFFSET)				((OFFSET) >> 2)
+#define EEPROM_DATA_ADDRESS_ATECC(SLOT, BLOCK, OFFSET)	((((BLOCK) & 0b00001111) << 8) | ((((SLOT) & 0b01111) << 3) | ((OFFSET) & 0b00000111)))
 
 #define ADDRESS_CONFIG_READ_BLOCK_0 0x0000 // 00000000 00000000 // param2 (byte 0), address block bits: _ _ _ 0  0 _ _ _
 #define ADDRESS_CONFIG_READ_BLOCK_1 0x0008 // 00000000 00001000 // param2 (byte 0), address block bits: _ _ _ 0  1 _ _ _
@@ -191,7 +191,7 @@ class ATECCX08A {
   public:
 
     //By default use Wire, standard I2C speed, and the default ADS1015 address
-	#if defined(ARDUINO_ARCH_APOLLO3) || defined(ARDUINO_ARCH_ESP32) // checking which board we are using and selecting a Serial debug that will work.
+	#if defined(ARDUINO_ARCH_APOLLO3) || defined(ARDUINO_ARCH_ESP32) || defined(NRF52_SERIES) || defined(ARDUINO_ARCH_RP2040) // checking which board we are using and selecting a Serial debug that will work.
 	boolean begin(uint8_t i2caddr = ATECC508A_ADDRESS_DEFAULT, TwoWire &wirePort = Wire, Stream &serialPort = Serial); // Artemis
 	#else
 	boolean begin(uint8_t i2caddr = ATECC508A_ADDRESS_DEFAULT, TwoWire &wirePort = Wire, Stream &serialPort = SerialUSB);  // SamD21 boards
